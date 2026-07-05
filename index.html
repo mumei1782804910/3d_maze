@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#0b1030">
+<title>Edmund's Little Planet Maze</title>
+<link rel="stylesheet" href="style.css">
+<script>
+// show load/runtime errors on screen (phones have no console)
+window.addEventListener('error', function (e) {
+  var msg = e.message
+    ? e.message
+    : 'Failed to load: ' + ((e.target && (e.target.src || e.target.href)) || 'resource');
+  var d = document.getElementById('errBanner');
+  if (!d) {
+    d = document.createElement('div');
+    d.id = 'errBanner';
+    d.style.cssText = 'position:fixed;left:8px;right:8px;bottom:8px;background:#c0392b;color:#fff;' +
+      'padding:10px 14px;border-radius:10px;font:14px/1.4 sans-serif;z-index:99;white-space:pre-wrap';
+    document.body.appendChild(d);
+  }
+  d.textContent = '⚠️ ' + msg;
+}, true);
+</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+
+<div id="hud" class="hidden">
+  <button id="btnNew" class="round-btn" title="New maze">🔄</button>
+  <button id="btnMusic" class="round-btn" title="Music on/off">🔊</button>
+</div>
+
+<div id="floorChip" class="hidden">🪜 Floor 1 / 3</div>
+
+<div id="dpad" class="hidden">
+  <button class="dpad-btn" id="dpadUp" data-dir="up">▲</button>
+  <button class="dpad-btn" id="dpadLeft" data-dir="left">◀</button>
+  <button class="dpad-btn" id="dpadRight" data-dir="right">▶</button>
+  <button class="dpad-btn" id="dpadDown" data-dir="down">▼</button>
+</div>
+
+<div id="liftBtns" class="hidden">
+  <button class="dpad-btn lift-btn" id="btnLiftUp" title="Float up">⏫</button>
+  <button class="dpad-btn lift-btn" id="btnLiftDown" title="Float down">⏬</button>
+</div>
+
+<div id="startOverlay" class="overlay">
+  <div class="card">
+    <h1>🌍 Edmund's<br>Little Planet Maze</h1>
+    <p>A maze with many floors is hidden inside a tiny planet.<br>Help Edmund find his way out!</p>
+    <p class="hints">🖐 drag to spin the planet &nbsp;·&nbsp; 🤏 pinch to zoom<br>▲ ▼ ◀ ▶ to walk &nbsp;·&nbsp; ⏫ ⏬ ride the glowing lifts</p>
+    <div class="sizes">
+      <button class="size-btn" data-n="5" data-l="2">Small</button>
+      <button class="size-btn selected" data-n="7" data-l="3">Medium</button>
+      <button class="size-btn" data-n="9" data-l="3">Large</button>
+    </div>
+    <button id="btnStart" class="big-btn">▶&nbsp; Start</button>
+  </div>
+</div>
+
+<div id="winOverlay" class="overlay hidden">
+  <div class="card">
+    <h1>🎉 Edmund escaped!</h1>
+    <p>What great thinking! Ready for another adventure?</p>
+    <button id="btnAgain" class="big-btn">Play again</button>
+    <button id="btnChange" class="size-btn">Change maze size</button>
+  </div>
+</div>
+
+<!-- classic (non-module) scripts so the game also works when index.html
+     is opened directly from the file system, not just over http -->
+<script defer src="https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js"></script>
+<script defer src="game.js?v=5"></script>
+</body>
+</html>
